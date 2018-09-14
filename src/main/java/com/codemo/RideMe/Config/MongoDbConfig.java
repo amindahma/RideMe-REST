@@ -14,8 +14,8 @@ public class MongoDbConfig {
     @Bean
     CommandLineRunner commandLineRunner(BikeRepository bikeRepository){
         return args -> {
-            bikeRepository.save(new Bike(1, "Mountain", true, 50));
-            bikeRepository.save(new Bike(2, "Normal", true, 50));
+//            bikeRepository.save(new Bike("1", "Mountain", "true", "50"));
+//            bikeRepository.save(new Bike("2", "Normal", "true", "50"));
         };
     }
 }

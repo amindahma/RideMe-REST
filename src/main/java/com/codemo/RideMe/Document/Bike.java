@@ -5,20 +5,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Bike {
-    @Id
-    private Integer id;
-    private String type;
-    private boolean available;
-    private Integer rent;
 
-    public Bike(Integer id, String type, boolean available, Integer rent) {
+    @Id
+    private String id;
+    private String type;
+    private String free;
+    private String rent;
+
+    public Bike(String id, String type, String free, String rent) {
         this.id = id;
         this.type = type;
-        this.available = available;
+        this.free = free;
         this.rent = rent;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -26,15 +27,15 @@ public class Bike {
         return type;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public String getFree() {
+        return free;
     }
 
-    public Integer getRent() {
+    public String getRent() {
         return rent;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,11 +43,21 @@ public class Bike {
         this.type = type;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setFree(String free) {
+        this.free = free;
     }
 
-    public void setRent(Integer rent) {
+    public void setRent(String rent) {
         this.rent = rent;
+    }
+
+    @Override
+    public String toString() {
+        return "Bike{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", free=" + free +
+                ", rent=" + rent +
+                '}';
     }
 }
