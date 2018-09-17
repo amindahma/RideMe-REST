@@ -49,7 +49,7 @@ public class BikeResource {
                             @RequestParam(value="nic", defaultValue="234567345v") String nic,
                             @RequestParam(value="type", defaultValue="normal") String type,
                             @RequestParam(value="pack", defaultValue="uni") String pack,
-                            @RequestParam(value="date", defaultValue="112018") String date,
+                            @RequestParam(value="date", defaultValue="1/1/2018") String date,
                             @RequestParam(value="rent", defaultValue="100") String rent) {
         List<Bike> bikeList = bikeRepository.findByType(type);
         String id = "";
@@ -59,16 +59,16 @@ public class BikeResource {
                 id = bike.getId();
                 break;
             }
+            boolean exist = false;
             for (Booking booking:bookingList) {
                 String bd = booking.getDate();
                 if(bd.equals(date)){
-
-                }else{
-                    id = bike.getId();
+                    exist = true;
                     break;
                 }
             }
-            if(!id.equals("")){
+            if(!exist){
+                id = bike.getId();
                 break;
             }
         }
@@ -81,7 +81,7 @@ public class BikeResource {
             bikeRepository.save(b);
             return id;
         }else{
-            return "error";
+            return "full";
         }
 
     }
