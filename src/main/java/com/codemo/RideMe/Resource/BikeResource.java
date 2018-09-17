@@ -1,10 +1,12 @@
 package com.codemo.RideMe.Resource;
 
 import com.codemo.RideMe.Document.Bike;
+import com.codemo.RideMe.Document.Booking;
 import com.codemo.RideMe.Repository.BikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,11 +21,10 @@ public class BikeResource {
     }
 
     @RequestMapping(value = "/addbike", method = RequestMethod.POST)
-    public String createBike(@RequestParam(value="type", defaultValue="normal") String type,
-                             @RequestParam(value="free", defaultValue="true") String free,
-                             @RequestParam(value="rent", defaultValue="50") String rent) {
-        bikeRepository.save(new Bike(Long.toString(bikeRepository.count()+1),type,free,rent));
-        return "200";
+    public Bike createBike(@RequestParam(value="type", defaultValue="normal") String type) {
+        Bike bike = new Bike(Long.toString(bikeRepository.count()+1),type, new ArrayList<>());
+        bikeRepository.save(bike);
+        return bike;
     }
 
 
@@ -43,12 +44,47 @@ public class BikeResource {
         return bikeRepository.findById(id);
     }
 
-    @RequestMapping(value = "/update_bike_by_id", method = RequestMethod.POST)
-    public Bike updateBikeById(@RequestParam(value="id", defaultValue="1") String id,
-                               @RequestParam(value="free", defaultValue="true") String free) {
-        Bike b =  bikeRepository.findById(id);
-        b.setFree(free);
-        bikeRepository.save(b);
-        return b;
+    @RequestMapping(value = "/book", method = RequestMethod.POST)
+    public String makeBooking(@RequestParam(value="name", defaultValue="aaaaaa") String name,
+                            @RequestParam(value="nic", defaultValue="234567345v") String nic,
+                            @RequestParam(value="type", defaultValue="normal") String type,
+                            @RequestParam(value="pack", defaultValue="uni") String pack,
+                            @RequestParam(value="date", defaultValue="112018") String date,
+                            @RequestParam(value="rent", defaultValue="100") String rent) {
+        List<Bike> bikeList = bikeRepository.findByType(type);
+        String id = "";
+        for (Bike bike:bikeList) {
+            ArrayList<Booking> bookingList = bike.getBookingList();
+            if(bookingList.size() == 0){
+                id = bike.getId();
+                break;
+            }
+            for (Booking booking:bookingList) {
+                String bd = booking.getDate();
+                if(bd.equals(date)){
+
+                }else{
+                    id = bike.getId();
+                    break;
+                }
+            }
+            if(!id.equals("")){
+                break;
+            }
+        }
+        if(!id.equals("")){
+            Bike b =  bikeRepository.findById(id);
+            Booking boo = new Booking(name, nic, pack, date, rent);
+            ArrayList<Booking> bl = b.getBookingList();
+            bl.add(boo);
+            b.setBookingList(bl);
+            bikeRepository.save(b);
+            return id;
+        }else{
+            return "error";
+        }
+
     }
+
+
 }

@@ -3,20 +3,20 @@ package com.codemo.RideMe.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+
 @Document
 public class Bike {
 
     @Id
     private String id;
     private String type;
-    private String free;
-    private String rent;
+    private ArrayList<Booking> bookingList;
 
-    public Bike(String id, String type, String free, String rent) {
+    public Bike(String id, String type, ArrayList<Booking> bookingList) {
         this.id = id;
         this.type = type;
-        this.free = free;
-        this.rent = rent;
+        this.bookingList = bookingList;
     }
 
     public String getId() {
@@ -27,14 +27,6 @@ public class Bike {
         return type;
     }
 
-    public String getFree() {
-        return free;
-    }
-
-    public String getRent() {
-        return rent;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -43,21 +35,11 @@ public class Bike {
         this.type = type;
     }
 
-    public void setFree(String free) {
-        this.free = free;
+    public ArrayList<Booking> getBookingList() {
+        return bookingList;
     }
 
-    public void setRent(String rent) {
-        this.rent = rent;
-    }
-
-    @Override
-    public String toString() {
-        return "Bike{" +
-                "id='" + id + '\'' +
-                ", type='" + type + '\'' +
-                ", free=" + free +
-                ", rent=" + rent +
-                '}';
+    public void setBookingList(ArrayList<Booking> bookingList) {
+        this.bookingList = bookingList;
     }
 }
