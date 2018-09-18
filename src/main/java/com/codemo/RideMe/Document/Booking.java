@@ -17,7 +17,7 @@ public class Booking {
         this.pack = pack;
         this.date = date;
         this.rent = rent;
-        this.location = hours;
+        this.location = location;
         this.hours = hours;
     }
 
