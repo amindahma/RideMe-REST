@@ -49,6 +49,8 @@ public class BikeResource {
                             @RequestParam(value="nic", defaultValue="234567345v") String nic,
                             @RequestParam(value="type", defaultValue="normal") String type,
                             @RequestParam(value="pack", defaultValue="uni") String pack,
+                            @RequestParam(value="location", defaultValue="loc1") String location,
+                            @RequestParam(value="hours", defaultValue="5") String hours,
                             @RequestParam(value="date", defaultValue="1/1/2018") String date,
                             @RequestParam(value="rent", defaultValue="100") String rent) {
         List<Bike> bikeList = bikeRepository.findByType(type);
@@ -74,7 +76,7 @@ public class BikeResource {
         }
         if(!id.equals("")){
             Bike b =  bikeRepository.findById(id);
-            Booking boo = new Booking(name, nic, type, pack, date, rent);
+            Booking boo = new Booking(name, nic, type, pack, location, hours, date, rent);
             ArrayList<Booking> bl = b.getBookingList();
             bl.add(boo);
             b.setBookingList(bl);

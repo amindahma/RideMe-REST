@@ -5,16 +5,20 @@ public class Booking {
     private String nic;
     private String type;
     private String pack;
+    private String location;
+    private String hours;
     private String date;
     private String rent;
 
-    public Booking(String name, String nic, String type, String pack, String date, String rent) {
+    public Booking(String name, String nic, String type, String pack, String location, String hours, String date, String rent) {
         this.name = name;
         this.nic = nic;
         this.setType(type);
         this.pack = pack;
         this.date = date;
         this.rent = rent;
+        this.location = hours;
+        this.hours = hours;
     }
 
     public String getName() {
@@ -63,5 +67,21 @@ public class Booking {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 }
