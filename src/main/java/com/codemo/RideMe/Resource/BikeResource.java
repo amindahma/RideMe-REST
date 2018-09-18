@@ -74,7 +74,7 @@ public class BikeResource {
         }
         if(!id.equals("")){
             Bike b =  bikeRepository.findById(id);
-            Booking boo = new Booking(name, nic, pack, date, rent);
+            Booking boo = new Booking(name, nic, type, pack, date, rent);
             ArrayList<Booking> bl = b.getBookingList();
             bl.add(boo);
             b.setBookingList(bl);
@@ -86,5 +86,21 @@ public class BikeResource {
 
     }
 
+    @RequestMapping(value = "/history", method = RequestMethod.POST)
+    public List<Booking> getHistory(@RequestParam(value="nic", defaultValue="normal") String nic) {
+        List<Bike> all =  bikeRepository.findAll();
+        ArrayList<Booking> filteredList = new ArrayList<>();
+        for (Bike bike:all) {
+            ArrayList<Booking> bookingList = bike.getBookingList();
+            for (Booking booking:bookingList) {
+                String nicNo = booking.getNic();
+                if(nicNo.equals(nic)){
+                    filteredList.add(booking);
+                }
+            }
+
+        }
+        return filteredList;
+    }
 
 }

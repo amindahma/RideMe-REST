@@ -3,13 +3,15 @@ package com.codemo.RideMe.Document;
 public class Booking {
     private String name;
     private String nic;
+    private String type;
     private String pack;
     private String date;
     private String rent;
 
-    public Booking(String name, String nic, String pack, String date, String rent) {
+    public Booking(String name, String nic, String type, String pack, String date, String rent) {
         this.name = name;
         this.nic = nic;
+        this.setType(type);
         this.pack = pack;
         this.date = date;
         this.rent = rent;
@@ -55,14 +57,11 @@ public class Booking {
         this.rent = rent;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "name='" + name + '\'' +
-                ", nic='" + nic + '\'' +
-                ", pack='" + pack + '\'' +
-                ", date='" + date + '\'' +
-                ", rent='" + rent + '\'' +
-                '}';
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
