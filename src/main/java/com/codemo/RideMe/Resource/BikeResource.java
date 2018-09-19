@@ -105,7 +105,7 @@ public class BikeResource {
         return filteredList;
     }
 
-    @RequestMapping(value = "/all_bookings", method = RequestMethod.POST)
+    @RequestMapping(value = "/all_bookings", method = RequestMethod.GET)
     public List<Booking> getBookings() {
         List<Bike> all =  bikeRepository.findAll();
         ArrayList<Booking> bookingList = new ArrayList<>();
