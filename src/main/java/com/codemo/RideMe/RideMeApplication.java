@@ -22,7 +22,7 @@ public class RideMeApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/*").allowedOrigins("http://localhost:4200", "https://rideme-web.herokuapp.com");
+				registry.addMapping("/*").allowedOrigins("http://localhost:4200", "https://rideme-web.herokuapp.com", "http://rideme.tk");
 			}
 		};
 	}
