@@ -105,4 +105,17 @@ public class BikeResource {
         return filteredList;
     }
 
+    @RequestMapping(value = "/all_bookings", method = RequestMethod.POST)
+    public List<Booking> getBookings() {
+        List<Bike> all =  bikeRepository.findAll();
+        ArrayList<Booking> bookingList = new ArrayList<>();
+        for (Bike bike:all) {
+            ArrayList<Booking> list = bike.getBookingList();
+            for (Booking booking:list) {
+                bookingList.add(booking);
+            }
+        }
+        return bookingList;
+    }
+
 }
