@@ -1,6 +1,8 @@
 package com.codemo.RideMe.Document;
 
 public class Booking {
+
+    private String id;
     private String name;
     private String nic;
     private String type;
@@ -10,7 +12,8 @@ public class Booking {
     private String date;
     private String rent;
 
-    public Booking(String name, String nic, String type, String pack, String location, String hours, String date, String rent) {
+    public Booking(String id, String name, String nic, String type, String pack, String location, String hours, String date, String rent) {
+        this.setId(id);
         this.name = name;
         this.nic = nic;
         this.setType(type);
@@ -83,5 +86,13 @@ public class Booking {
 
     public void setHours(String hours) {
         this.hours = hours;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
