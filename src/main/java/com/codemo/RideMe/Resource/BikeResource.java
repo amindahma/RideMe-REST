@@ -6,7 +6,12 @@ import com.codemo.RideMe.Repository.BikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -102,7 +107,7 @@ public class BikeResource {
             }
 
         }
-        return filteredList;
+        return getSortedList(filteredList);
     }
 
     @RequestMapping(value = "/all_bookings", method = RequestMethod.GET)
@@ -115,7 +120,22 @@ public class BikeResource {
                 bookingList.add(booking);
             }
         }
-        return bookingList;
+        return getSortedList(bookingList);
+    }
+
+    public ArrayList<Booking> getSortedList(ArrayList<Booking> list){
+        Collections.sort(list, new Comparator<Booking>() {
+            DateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+            @Override
+            public int compare(Booking o1, Booking o2) {
+                try {
+                    return f.parse(o2.getDate()).compareTo(f.parse(o1.getDate()));
+                } catch (ParseException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+        });
+        return list;
     }
 
 }
