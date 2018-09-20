@@ -11,8 +11,9 @@ public class Booking {
     private String hours;
     private String date;
     private String rent;
+    private String riding;
 
-    public Booking(String id, String name, String nic, String type, String pack, String location, String hours, String date, String rent) {
+    public Booking(String id, String name, String nic, String type, String pack, String location, String hours, String date, String rent, String riding) {
         this.setId(id);
         this.name = name;
         this.nic = nic;
@@ -22,6 +23,7 @@ public class Booking {
         this.rent = rent;
         this.location = location;
         this.hours = hours;
+        this.setRiding(riding);
     }
 
     public String getName() {
@@ -94,5 +96,13 @@ public class Booking {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getRiding() {
+        return riding;
+    }
+
+    public void setRiding(String riding) {
+        this.riding = riding;
     }
 }

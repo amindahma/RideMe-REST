@@ -33,7 +33,7 @@ public class BikeResource {
     }
 
 
-    @RequestMapping(value = "/deleteall", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteall", method = RequestMethod.GET)
     public String deleteAll() {
         bikeRepository.deleteAll();
         return "200";
@@ -81,7 +81,7 @@ public class BikeResource {
         }
         if(!id.equals("")){
             Bike b =  bikeRepository.findById(id);
-            Booking boo = new Booking(id, name, nic, type, pack, location, hours, date, rent);
+            Booking boo = new Booking(id, name, nic, type, pack, location, hours, date, rent, "false");
             ArrayList<Booking> bl = b.getBookingList();
             bl.add(boo);
             b.setBookingList(bl);
@@ -136,6 +136,53 @@ public class BikeResource {
             }
         });
         return list;
+    }
+
+    @RequestMapping(value = "/daily", method = RequestMethod.POST)
+    public List<Booking> getDaily(@RequestParam(value="date", defaultValue="1/1/2018") String date) {
+        List<Bike> all =  bikeRepository.findAll();
+        ArrayList<Booking> filteredList = new ArrayList<>();
+        for (Bike bike:all) {
+            ArrayList<Booking> bookingList = bike.getBookingList();
+            for (Booking booking:bookingList) {
+                String dates = booking.getDate();
+                if(dates.equals(date)){
+                    filteredList.add(booking);
+                }
+            }
+
+        }
+        return filteredList;
+    }
+
+    @RequestMapping(value = "/update_riding", method = RequestMethod.POST)
+    public String updateRide(@RequestParam(value="status", defaultValue="false") String status,
+                             @RequestParam(value="date", defaultValue="1/1/2018") String date,
+                             @RequestParam(value="id", defaultValue="1") String id) {
+        List<Bike> all =  bikeRepository.findAll();
+        boolean exist = false;
+        for (Bike bike:all) {
+            String idB = bike.getId();
+            ArrayList<Booking> bookingList = bike.getBookingList();
+            for (Booking booking:bookingList) {
+                String dates = booking.getDate();
+                if(dates.equals(date) && idB.equals(id)){
+                    booking.setRiding(status);
+                    bikeRepository.save(bike);
+                    exist = true;
+                    break;
+                }
+            }
+            if(exist){
+                break;
+            }
+        }
+        if(exist){
+            return "200";
+        }else {
+            return "400";
+        }
+
     }
 
 }
