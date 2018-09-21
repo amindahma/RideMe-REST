@@ -156,7 +156,7 @@ public class BikeResource {
     }
 
     @RequestMapping(value = "/update_riding", method = RequestMethod.POST)
-    public String updateRide(@RequestParam(value="status", defaultValue="false") String status,
+    public String updateRide(@RequestParam(value="status", defaultValue="Start") String status,
                              @RequestParam(value="date", defaultValue="1/1/2018") String date,
                              @RequestParam(value="id", defaultValue="1") String id) {
         List<Bike> all =  bikeRepository.findAll();
