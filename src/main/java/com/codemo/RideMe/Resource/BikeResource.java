@@ -81,7 +81,7 @@ public class BikeResource {
         }
         if(!id.equals("")){
             Bike b =  bikeRepository.findById(id);
-            Booking boo = new Booking(id, name, nic, type, pack, location, hours, date, rent, "false");
+            Booking boo = new Booking(id, name, nic, type, pack, location, hours, date, rent, "No");
             ArrayList<Booking> bl = b.getBookingList();
             bl.add(boo);
             b.setBookingList(bl);
